@@ -5,13 +5,14 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use JMS\Serializer\Annotation as Serialization;
+use App\Iterator\OfferIterator;
+
 
 /**
 * Interface of Data Transfer Object, that represents external JSON data
 */
 interface OfferInterface {}
-
-
 
 
 /**
@@ -30,12 +31,12 @@ class OfferCollection implements OfferCollectionInterface {
     private $index = 0;
 
     public function get(int $index): OfferInterface {
-        return $this->index;
+        return $this->items[$index];
     }
 
-    public function getIterator(): Iterator{
+    public function getIterator(): Iterator {
         // https://refactoring.guru/es/design-patterns/iterator/php/example#example-1
-        return new AlphabeticalOrderIterator($this);
+        return new OfferCollectionIterator($this);
     }
 
 }
@@ -61,7 +62,7 @@ class Reader implements ReaderInterface {
     private $input = 'json';//E.g. it can be XML/JSON Remote Endpoint, or CSV/JSON/XML local files
 
     public function read(string $input): OfferCollectionInterface {
-        return '';
+        return new OfferCollectionInterface($input);
     }
 
 }

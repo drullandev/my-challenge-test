@@ -7,6 +7,7 @@
  */
 class CsvIterator implements \Iterator
 {
+    
     const ROW_SIZE = 4096;
 
     /**
