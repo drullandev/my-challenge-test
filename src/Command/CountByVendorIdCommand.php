@@ -3,16 +3,32 @@
 namespace App\Command;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
+
+use Symfony\Component\Console\Output\OutputInterface;
 
 use Symfony\Component\Asset\Package;
 use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 use Psr\Log\LoggerInterface;
+
+
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+/*
+use App\Iterator\OfferIterator;
+
+use App\Interface\OfferCollectionInterface;
+use App\Interface\OfferInterface;
+use App\Interface\ReaderInterface;
+
+use App\Collection\OfferCollection;
+*/
 
 class CountByVendorIdCommand extends Command
 {
@@ -38,6 +54,7 @@ class CountByVendorIdCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output, LoggerInterface $logger): int
     {
 
+        /*
         $response = $this->client->request('GET', $this->products_remote);
 
         $return = $response->getContent();
@@ -53,6 +70,7 @@ class CountByVendorIdCommand extends Command
             // include extra "context" info in your logs
             'cause' => 'in_hurry',
         ]);
+        */
 
         // (it's equivalent to returning int(0))
         return Command::SUCCESS;
