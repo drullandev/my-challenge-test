@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
-use App\Controller\ProductsController;
+use App\Controller\ProductController;
 
 class CountByVendorIdCommand extends Command
 {
@@ -29,30 +29,29 @@ class CountByVendorIdCommand extends Command
 
             $args = $input->getArguments();
 
-            $pdc = new ProductsController();
+            if(!is_numeric($args['vendor_id'])){
+                throw new \Exception('The vendor_id must be numeric.');
+            }
+
+            if($args['vendor_id'] <= 0){
+                throw new \Exception('The vendor_id must greater than 0.');
+            }
+
+            $pdc = new ProductController();
 
             $result = $pdc->countByVendorId($args['vendor_id']);
 
             $output->writeln([$result]);
 
+            return Command::SUCCESS;
+            
         } catch(\Exception $e){
 
             $output->writeln([$e->getMessage()]);
 
-            // or return this if some error happened during the execution
-            // (it's equivalent to returning int(1))
-            //return Command::FAILURE;
-
-            // or return this to indicate incorrect command usage; e.g. invalid options
-            // or missing arguments (it's equivalent to returning int(2))
-            // return Command::INVALID
+            return Command::INVALID;
 
         }
-
-        // (it's equivalent to returning int(0))
-        return Command::SUCCESS;
-
-
 
     }
     

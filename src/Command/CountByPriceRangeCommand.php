@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
-use App\Controller\ProductsController;
+use App\Controller\ProductController;
 
 class CountByPriceRangeCommand extends Command
 {
@@ -32,47 +32,42 @@ class CountByPriceRangeCommand extends Command
             $args = $input->getArguments();
 
             if(!is_numeric($args['price_from'])){
-                throw new \Exception("The price_from must be numeric.");
+                throw new \Exception('The price_from must be numeric.');
             }
 
             if(!is_numeric($args['price_to'])){
-                throw new \Exception("The price_from must be numeric.");
+                throw new \Exception('The price_from must be numeric.');
             }
 
             if($args['price_from'] < 0){
-                throw new \Exception("The price_from cannot be less than 0.");
+                throw new \Exception('The price_from cannot be less than 0.');
             }
 
             if ($args['price_from'] == $args['price_to'] ) {            
-                throw new \Exception("The values price_from and price_to are the same.");
+                throw new \Exception('The values price_from and price_to are the same.');
             }
 
             if ($args['price_from'] >= $args['price_to'] ) {            
-                throw new \Exception("The price_to must be greater than price_from.");
+                throw new \Exception('The price_to must be greater than price_from.');
             }
 
-            $pdc = new ProductsController();
+            $pdc = new ProductController();
             
             $result = $pdc->countByPriceRange($args['price_from'], $args['price_to']);
 
             $output->writeln([$result]);
 
+            return Command::SUCCESS;
+
         } catch(\Exception $e){
 
             $output->writeln([$e->getMessage()]);
 
-            // or return this if some error happened during the execution
-            // (it's equivalent to returning int(1))
-            //return Command::FAILURE;
-
-            // or return this to indicate incorrect command usage; e.g. invalid options
-            // or missing arguments (it's equivalent to returning int(2))
             return Command::INVALID;
 
         }
 
-        // (it's equivalent to returning int(0))
-        return Command::SUCCESS;
+
 
     }
     
