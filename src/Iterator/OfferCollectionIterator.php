@@ -8,8 +8,8 @@ class OfferCollectionIterator implements \Iterator
     private $array;
     private $position = 0;
 
-    public function __construct( $json ) {
-      $this->array = $json;
+    public function __construct( $array ) {
+      $this->array = $array;
     }
 
     public function rewind():void {
