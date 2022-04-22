@@ -4,19 +4,25 @@ namespace App\Collection;
 
 use App\Interface\OfferCollectionInterface;
 use App\Interface\OfferInterface;
+
 use App\Iterator\OfferCollectionIterator;
+use Iterator;
 
 class OfferCollection implements OfferCollectionInterface {
 
-    private $index = 0;
+    private $offers;
+
+    function __construct($offers)
+    {
+        $this->offers = $offers;
+    }
 
     public function get(int $index): OfferInterface {
-        return $this->items[$index];
+        return $this->offers[$index];
     }
 
     public function getIterator(): Iterator {
-        // https://refactoring.guru/es/design-patterns/iterator/php/example#example-1
-        return new OfferCollectionIterator($this);
+        return new OfferCollectionIterator($this->offers);
     }
 
 }

@@ -14,7 +14,7 @@ use App\Controller\ProductsController;
 class CountByVendorIdCommand extends Command
 {
 
-    // php bin/console count_by_vendor_id 12
+    // php bin/console count_by_vendor_id 35
     protected static $defaultName = 'count_by_vendor_id';
 
     protected function configure(): void

@@ -2,29 +2,23 @@
 
 namespace App\Controller;
 
-use Symfony\Component\HttpClient\HttpClient;
-
-use App\Iterator\OfferIterator;
-use App\Interface\OfferCollectionInterface;
-use App\Interface\OfferInterface;
-use App\Interface\ReaderInterface;
-use App\Collection\OfferCollection;
+use App\Utils\Reader;
 
 class ProductsController {
 
-    private $remote = 'https://demo4857306.mockable.io/products';
+    private $type = 'json';
 
     function __construct()
     {
-        $client = HttpClient::create();
-        $response = $client->request('GET', $this->remote);
-        $this->content = json_decode($response->getContent());
+        $reader = new Reader();
+        $read = $reader->read($this->type);
+        $this->iterator = $read->getIterator();
     }
 
     public function countByVendorId(int $id) : int
     {       
         $count = 0;
-        foreach($this->content as $row){
+        foreach($this->iterator as $key => $row){
             if($row->vendorId == $id ){
                 $count++;
             }
@@ -35,7 +29,7 @@ class ProductsController {
     public function countByPriceRange(int $price_from, int $price_to) : int
     {       
         $count = 0;
-        foreach($this->content as $row){
+        foreach($this->iterator as $key => $row){
             if($row->price >= $price_from && $row->price <= $price_to ){
                 $count++;
             }
