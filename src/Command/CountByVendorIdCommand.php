@@ -11,11 +11,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use App\Controller\ProductController;
 
+use Psr\Log\LoggerInterface;
+
 class CountByVendorIdCommand extends Command
 {
 
     // php bin/console count_by_vendor_id 35
     protected static $defaultName = 'count_by_vendor_id';
+
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+        parent::__construct();
+    }
 
     protected function configure(): void
     {
@@ -49,6 +59,8 @@ class CountByVendorIdCommand extends Command
 
             $output->writeln([$e->getMessage()]);
 
+            $this->logger->error($e->getMessage());
+            
             return Command::INVALID;
 
         }

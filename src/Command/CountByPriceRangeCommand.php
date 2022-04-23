@@ -11,11 +11,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use App\Controller\ProductController;
 
+use Psr\Log\LoggerInterface;
+
+// php bin/console count_by_price_range 12.00 145.80
 class CountByPriceRangeCommand extends Command
 {
 
-    // php bin/console count_by_price_range 12.00 145.80
     protected static $defaultName = 'count_by_price_range';
+
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+        parent::__construct();
+    }
 
     protected function configure(): void
     {
@@ -63,11 +73,11 @@ class CountByPriceRangeCommand extends Command
 
             $output->writeln([$e->getMessage()]);
 
+            $this->logger->error($e->getMessage());
+
             return Command::INVALID;
 
         }
-
-
 
     }
     

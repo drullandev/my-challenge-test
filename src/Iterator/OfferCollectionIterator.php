@@ -12,19 +12,19 @@ class OfferCollectionIterator implements \Iterator
       $this->array = $array;
     }
 
-    public function rewind():void {
+    public function rewind(): void {
         $this->position = 0;
     }
-
-    public function current() {
+ 
+    public function current(): mixed {
         return $this->array[$this->position];
     }
 
-    public function key() {
+    public function key(): mixed {
         return $this->position;
     }
 
-    public function next():void {
+    public function next(): void {
         ++$this->position;
     }
 

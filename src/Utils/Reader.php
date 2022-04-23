@@ -10,19 +10,15 @@ use Symfony\Component\HttpClient\HttpClient;
 
 class Reader implements ReaderInterface {    
 
-    private $location = 'remote';
-    private $remote = 'http://demo4857306.mockable.io/products';
-    private $local = './public/products.json';
-
     public function read(string $input): OfferCollection
     {
         switch($input){
             case 'json':
+            default:
                 $client = HttpClient::create();
-                $response = $client->request('GET', $this->remote);    
+                $response = $client->request('GET', 'http://demo4857306.mockable.io/products');    
                 $content = json_decode($response->getContent());
                 return new OfferCollection($content);
-            default:
         }
 
     }

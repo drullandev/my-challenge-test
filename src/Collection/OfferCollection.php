@@ -17,11 +17,13 @@ class OfferCollection implements OfferCollectionInterface {
         $this->offers = $offers;
     }
 
-    public function get(int $index): OfferInterface {
+    public function get(int $index): OfferInterface
+    {
         return $this->offers[$index];
     }
 
-    public function getIterator(): Iterator {
+    public function getIterator(): Iterator
+    {
         return new OfferCollectionIterator($this->offers);
     }
 
