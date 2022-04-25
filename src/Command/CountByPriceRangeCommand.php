@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
-use App\Controller\ProductController;
+use App\Controller\OfferController;
 
 use Psr\Log\LoggerInterface;
 
@@ -61,7 +61,7 @@ class CountByPriceRangeCommand extends Command
                 throw new \Exception('The price_to must be greater than price_from.');
             }
 
-            $pdc = new ProductController();
+            $pdc = new OfferController();
             
             $result = $pdc->countByPriceRange($args['price_from'], $args['price_to']);
 

@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Utils\Reader;
 
-class ProductController {
+class OfferController {
 
     private $type = 'json';
 
@@ -13,6 +13,7 @@ class ProductController {
         $reader = new Reader();
         $read = $reader->read($this->type);
         $this->iterator = $read->getIterator();
+        var_export($this->iterator); die();
     }
 
     public function countByVendorId(int $id) : int

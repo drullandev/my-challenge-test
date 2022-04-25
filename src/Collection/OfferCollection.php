@@ -4,7 +4,7 @@ namespace App\Collection;
 
 use App\Interface\OfferCollectionInterface;
 use App\Interface\OfferInterface;
-
+use App\DTOs\OfferDTO;
 use App\Iterator\OfferCollectionIterator;
 use Iterator;
 
@@ -17,9 +17,10 @@ class OfferCollection implements OfferCollectionInterface {
         $this->offers = $offers;
     }
 
-    public function get(int $index): OfferInterface
+    public function get(int $index): OfferDTO
     {
-        return $this->offers[$index];
+        $offer = $this->offers[$index];
+        return new OfferDTO($offer->offerId, $offer->productTitle, $offer->vendorId, $offer->price);
     }
 
     public function getIterator(): Iterator

@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 use Symfony\Component\Console\Output\OutputInterface;
 
-use App\Controller\ProductController;
+use App\Controller\OfferController;
 
 use Psr\Log\LoggerInterface;
 
@@ -47,7 +47,7 @@ class CountByVendorIdCommand extends Command
                 throw new \Exception('The vendor_id must greater than 0.');
             }
 
-            $pdc = new ProductController();
+            $pdc = new OfferController();
 
             $result = $pdc->countByVendorId($args['vendor_id']);
 
