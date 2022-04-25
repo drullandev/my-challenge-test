@@ -86,6 +86,9 @@
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
+    "laravel/serializable-closure": {
+        "version": "v1.1.1"
+    },
     "monolog/monolog": {
         "version": "2.4.0"
     },
@@ -100,6 +103,15 @@
     },
     "phar-io/version": {
         "version": "3.2.1"
+    },
+    "php-di/invoker": {
+        "version": "2.3.3"
+    },
+    "php-di/php-di": {
+        "version": "6.4.0"
+    },
+    "php-di/phpdoc-reader": {
+        "version": "2.2.1"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
