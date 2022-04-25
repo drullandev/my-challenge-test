@@ -14,7 +14,8 @@ class OfferController {
         $count = 0;
         foreach($iterator as $key => $row){
             $offer = $read->get($key);
-            if($offer->vendorId == $id ){
+            $vendorId = $offer->getVendorId();
+            if($vendorId == $id ){
                 $count++;
             }
         }
@@ -29,7 +30,8 @@ class OfferController {
         $count = 0;
         foreach($iterator as $key => $row){
             $offer = $read->get($key);
-            if($offer->price >= $price_from && $offer->price <= $price_to ){
+            $price = $offer->getPrice();
+            if($price >= $price_from && $price <= $price_to ){
                 $count++;
             }
         }
