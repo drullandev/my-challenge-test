@@ -61,9 +61,9 @@ class CountByPriceRangeCommand extends Command
                 throw new \Exception('The price_to must be greater than price_from.');
             }
 
-            $pdc = new OfferController();
+            $ofc = new OfferController();
             
-            $result = $pdc->countByPriceRange($args['price_from'], $args['price_to']);
+            $result = $ofc->countByPriceRange($args['price_from'], $args['price_to']);
 
             $output->writeln([$result]);
 

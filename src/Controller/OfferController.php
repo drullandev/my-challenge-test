@@ -31,7 +31,7 @@ class OfferController {
         foreach($iterator as $key => $row){
             $offer = $read->get($key);
             $price = $offer->getPrice();
-            if($price >= $price_from && $price <= $price_to ){
+            if($price >= $price_from && $price <= $price_to){
                 $count++;
             }
         }

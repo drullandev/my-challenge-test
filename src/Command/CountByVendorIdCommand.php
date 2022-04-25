@@ -47,9 +47,9 @@ class CountByVendorIdCommand extends Command
                 throw new \Exception('The vendor_id must greater than 0.');
             }
 
-            $pdc = new OfferController();
+            $ofc = new OfferController();
 
-            $result = $pdc->countByVendorId($args['vendor_id']);
+            $result = $ofc->countByVendorId($args['vendor_id']);
 
             $output->writeln([$result]);
 
