@@ -3,9 +3,9 @@
 namespace App\Collection;
 
 use App\Interface\OfferCollectionInterface;
-use App\Interface\OfferInterface;
-use App\DTOs\OfferDTO;
 use App\Iterator\OfferCollectionIterator;
+use App\DTOs\OfferDTO;
+
 use Iterator;
 
 class OfferCollection implements OfferCollectionInterface {

@@ -6,21 +6,15 @@ use App\Utils\Reader;
 
 class OfferController {
 
-    private $type = 'json';
-
-    function __construct()
+    public function countByVendorId(int $id) : int
     {
         $reader = new Reader();
-        $read = $reader->read($this->type);
-        $this->iterator = $read->getIterator();
-        var_export($this->iterator); die();
-    }
-
-    public function countByVendorId(int $id) : int
-    {       
+        $read = $reader->read('json');
+        $iterator = $read->getIterator();
         $count = 0;
-        foreach($this->iterator as $key => $row){
-            if($row->vendorId == $id ){
+        foreach($iterator as $key => $row){
+            $offer = $read->get($key);
+            if($offer->vendorId == $id ){
                 $count++;
             }
         }
@@ -29,9 +23,13 @@ class OfferController {
 
     public function countByPriceRange(int $price_from, int $price_to) : int
     {       
+        $reader = new Reader();
+        $read = $reader->read('json');
+        $iterator = $read->getIterator();
         $count = 0;
-        foreach($this->iterator as $key => $row){
-            if($row->price >= $price_from && $row->price <= $price_to ){
+        foreach($iterator as $key => $row){
+            $offer = $read->get($key);
+            if($offer->price >= $price_from && $offer->price <= $price_to ){
                 $count++;
             }
         }
