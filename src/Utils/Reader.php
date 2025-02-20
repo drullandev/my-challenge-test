@@ -31,5 +31,3 @@ class Reader implements ReaderInterface
         return new OfferCollection($content);
     }
 }
-
-}
