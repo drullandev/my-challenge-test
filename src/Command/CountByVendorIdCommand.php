@@ -3,68 +3,48 @@
 namespace App\Command;
 
 use Symfony\Component\Console\Command\Command;
-
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputArgument;
-
 use Symfony\Component\Console\Output\OutputInterface;
-
 use App\Controller\OfferController;
-
 use Psr\Log\LoggerInterface;
 
 class CountByVendorIdCommand extends Command
 {
-
-    // php bin/console count_by_vendor_id 35
     protected static $defaultName = 'count_by_vendor_id';
 
-    private $logger;
+    private OfferController $offerController;
+    private LoggerInterface $logger;
 
-    public function __construct(LoggerInterface $logger)
+    public function __construct(OfferController $offerController, LoggerInterface $logger)
     {
-        $this->logger = $logger;
         parent::__construct();
+        $this->offerController = $offerController;
+        $this->logger = $logger;
     }
 
     protected function configure(): void
     {
-        $this->addArgument('vendor_id', InputArgument::REQUIRED, 'The vendor_id is required.');
+        $this->addArgument('vendor_id', InputArgument::REQUIRED, 'Vendor ID must be a positive number.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-
         try {
-
-            $args = $input->getArguments();
-
-            if(!is_numeric($args['vendor_id'])){
-                throw new \Exception('The vendor_id must be numeric.');
+            $vendorId = filter_var($input->getArgument('vendor_id'), FILTER_VALIDATE_INT, ["options" => ["min_range" => 1]]);
+            
+            if ($vendorId === false) {
+                throw new \InvalidArgumentException('Invalid vendor_id. It must be a positive integer.');
             }
 
-            if($args['vendor_id'] <= 0){
-                throw new \Exception('The vendor_id must greater than 0.');
-            }
-
-            $ofc = new OfferController();
-
-            $result = $ofc->countByVendorId($args['vendor_id']);
-
-            $output->writeln([$result]);
+            $result = $this->offerController->countByVendorId($vendorId);
+            $output->writeln($result);
 
             return Command::SUCCESS;
-            
-        } catch(\Exception $e){
-
-            $output->writeln([$e->getMessage()]);
-
+        } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
-            
-            return Command::INVALID;
-
+            $output->writeln($e->getMessage());
+            return Command::FAILURE;
         }
-
     }
-    
 }

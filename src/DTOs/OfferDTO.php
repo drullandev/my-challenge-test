@@ -6,27 +6,30 @@ use App\Interface\OfferInterface;
 
 class OfferDTO implements OfferInterface
 {
-    private int $offerId;
-    private string $productTitle;
-    private int $vendorId;
-    private float $price;
+    public function __construct(
+        public readonly int $offerId,
+        public readonly string $productTitle,
+        public readonly int $vendorId,
+        public readonly float $price
+    ) {}
 
-    public function __construct(int $offerId, string $productTitle, int $vendorId, float $price)
+    public function getOfferId(): int
     {
-        $this->offerId = $offerId;
-        $this->productTitle = $productTitle;
-        $this->vendorId = $vendorId;
-        $this->price = $price;
+        return $this->offerId;
     }
 
-    public function getPrice(): float 
+    public function getProductTitle(): string
     {
-        return $this->price;
+        return $this->productTitle;
     }
 
-    public function getVendorId(): int 
+    public function getVendorId(): int
     {
         return $this->vendorId;
     }
 
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
 }

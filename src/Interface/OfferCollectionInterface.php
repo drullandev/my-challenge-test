@@ -2,13 +2,9 @@
 
 namespace App\Interface;
 
-use App\Interface\OfferInterface;
-use Iterator;
+use IteratorAggregate;
 
-/**
-* Interface for The Collection class that contains Offers
-*/
-interface OfferCollectionInterface {
+interface OfferCollectionInterface extends IteratorAggregate
+{
     public function get(int $index): OfferInterface;
-    public function getIterator(): Iterator;
 }
